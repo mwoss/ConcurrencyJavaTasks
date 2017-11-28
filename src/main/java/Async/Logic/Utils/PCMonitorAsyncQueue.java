@@ -27,15 +27,20 @@ public class PCMonitorAsyncQueue {
             empty.add(i);
     }
 
-    public ArrayList<Integer> insertOnBeg(int amount){
+    public ArrayList<Integer> insertOnBeg(int amountToProduce) throws InterruptedException {
         lock.lock();
+        ArrayList<Integer> elements = new ArrayList<>();
         try{
+            while(empty.size() < amountToProduce)
+                waitProducer.await();
 
+            for(int iter = 0; iter < amountToProduce; iter++)
+                elements.add(empty.poll());
         }
         finally {
             lock.unlock();
         }
-        return null;
+        return elements;
     }
 
     public void insertOnEnd(ArrayList<Integer> elements){
@@ -48,19 +53,21 @@ public class PCMonitorAsyncQueue {
             lock.unlock();
         }
     }
-    public ArrayList<Integer> takeFromBeg(int amount) throws InterruptedException {
+    public ArrayList<Integer> takeFromBeg(int amountToConsume) throws InterruptedException {
         lock.lock();
+        ArrayList<Integer> elements = new ArrayList<>();
         try{
-            while(empty.size() < amount)
+            while(full.size() < amountToConsume) {
                 waitConsumer.await();
+            }
 
-            //dodac do obiektu ktory zostanie zwrocony
-            
+            for(int iter = 0; iter < amountToConsume; iter++)
+                elements.add(full.poll());
         }
         finally {
             lock.unlock();
         }
-        return null;
+        return elements;
     }
     public void takeFromEnd(ArrayList<Integer> elements){
         lock.lock();
