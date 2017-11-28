@@ -35,7 +35,7 @@ public class PCMonitor {
                 firstProducent.await();
 
             bufferList.addAll(products);
-            firstProdCont = false;
+            //firstProdCont = false;
             System.out.println(Thread.currentThread().getName() + " produced " + products.size() + " products");
             Thread.sleep(100);
 
@@ -61,7 +61,7 @@ public class PCMonitor {
 
 
             bufferList.subList(0, toConsume).clear();
-            firstConsCont = false;
+            //firstConsCont = false;
             System.out.println(Thread.currentThread().getName() + " consumed " + toConsume + " products");
             Thread.sleep(100);
 
