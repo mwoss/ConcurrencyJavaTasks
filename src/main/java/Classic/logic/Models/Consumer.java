@@ -7,11 +7,11 @@ import java.util.Random;
 
 public class Consumer extends Thread {
 
-    private final PCMonitorDeadlock pcMonitor;
+    private final PCMonitor pcMonitor;
     private final int productToConsumeLimit;
     private final Random random;
 
-    public Consumer(PCMonitorDeadlock monitor, int limit) {
+    public Consumer(PCMonitor monitor, int limit) {
         this.pcMonitor = monitor;
         this.productToConsumeLimit = limit;
         this.random = new Random();

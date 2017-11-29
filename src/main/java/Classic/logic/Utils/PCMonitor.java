@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class PCMonitor {
     private final int capacity;
-    private final Lock lock = new ReentrantLock();
+    private final ReentrantLock lock = new ReentrantLock();
     private final Condition firstProducent = lock.newCondition();
     private final Condition firstConsumer = lock.newCondition();
     private final Condition otherProducents = lock.newCondition();
@@ -35,10 +35,10 @@ public class PCMonitor {
                 firstProducent.await();
 
             bufferList.addAll(products);
-            //firstProdCont = false;
             System.out.println(Thread.currentThread().getName() + " produced " + products.size() + " products");
             Thread.sleep(100);
-
+            if (!lock.hasWaiters(otherProducents))
+                firstProdCont = false;
 
             otherProducents.signal();
             firstConsumer.signal();
@@ -59,12 +59,11 @@ public class PCMonitor {
             while (bufferList.size() < toConsume)
                 firstConsumer.await();
 
-
             bufferList.subList(0, toConsume).clear();
-            //firstConsCont = false;
             System.out.println(Thread.currentThread().getName() + " consumed " + toConsume + " products");
             Thread.sleep(100);
-
+            if (!lock.hasWaiters(otherConsumers))
+                firstConsCont = false;
             otherConsumers.signal();
             firstProducent.signal();
 

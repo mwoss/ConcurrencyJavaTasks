@@ -17,7 +17,7 @@ public class PCMonitorAsyncQueue {
     private Queue<Integer> empty;
     private Queue<Integer> full;
 
-    private int capacity;
+    private final int capacity;
     public PCMonitorAsyncQueue(int capacity){
         this.capacity = 2 * capacity;
         this.empty = new ConcurrentLinkedQueue<>();
