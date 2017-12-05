@@ -32,6 +32,7 @@ public class ConsumerQ2 extends Thread {
                 for(Integer element : elementsToConsume)
                     this.buffer.takeElement(element);
                 this.pcMonitorAsyncQueue.takeFromEnd(elementsToConsume);
+                Thread.sleep(500);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
