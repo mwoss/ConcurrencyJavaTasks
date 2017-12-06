@@ -1,4 +1,9 @@
 package ActiveObject.Models;
 
-public class Consumer {
+public class Consumer extends Thread {
+
+    @Override
+    public void run() {
+        
+    }
 }
