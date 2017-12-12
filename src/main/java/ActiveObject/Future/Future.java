@@ -8,7 +8,7 @@ public class Future implements IFuture<Integer>{
     @Override
     public Integer getResult() {
         System.out.println("Task done resultVal: " + this.result);
-        return this.result;
+        return result;
     }
 
     @Override

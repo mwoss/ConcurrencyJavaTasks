@@ -3,11 +3,13 @@ package ActiveObject.Models;
 import ActiveObject.Future.Future;
 import ActiveObject.Proxy;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class Producer extends Thread {
+
     private Proxy proxy;
     private Random random;
     private int bufferLimit;
@@ -20,6 +22,7 @@ public class Producer extends Thread {
         this.bufferLimit = bufferLimit;
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void run() {
         while(true){
@@ -27,10 +30,11 @@ public class Producer extends Thread {
 
             try{
                 Thread.sleep(200); //give him some time to finish job
-                for(Future task : taskList){
+                for(Iterator<Future> iterator = taskList.iterator(); iterator.hasNext();){
+                    Future task = iterator.next();
                     if(task.isFinished()){
                         task.getResult();
-                        taskList.remove(task);
+                        iterator.remove();
                     }
                 }
             }

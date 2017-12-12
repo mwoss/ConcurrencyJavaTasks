@@ -3,20 +3,20 @@ package ActiveObject.Queues;
 import ActiveObject.MethodRequest.IMethodRequest;
 
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class ActivationQueue implements IActivationQueue<IMethodRequest> {
 
-    private Queue<IMethodRequest> methodRequestQueue = new ConcurrentLinkedQueue<>();
+    private BlockingQueue<IMethodRequest> methodRequestQueue = new LinkedBlockingQueue<>();
 
     @Override
-    public IMethodRequest dequeue() {
+    public IMethodRequest dequeue() throws InterruptedException {
         return methodRequestQueue.poll();
     }
 
     @Override
-    public void enqueue(IMethodRequest methodRequest) {
+    public void enqueue(IMethodRequest methodRequest) throws InterruptedException {
         methodRequestQueue.offer(methodRequest);
     }
 }

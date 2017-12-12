@@ -2,6 +2,7 @@ package ActiveObject.Scheduler;
 
 import ActiveObject.MethodRequest.IMethodRequest;
 import ActiveObject.MethodRequest.PutMethodRequest;
+import ActiveObject.MethodRequest.TakeMethodRequest;
 import ActiveObject.Queues.ActivationQueue;
 
 import java.util.Queue;
@@ -16,12 +17,20 @@ public class Scheduler implements Runnable {
     private Thread scheduler;
 
     public void enqueue(IMethodRequest methodRequest) {
-        this.activationQueue.enqueue(methodRequest);
+        try {
+            this.activationQueue.enqueue(methodRequest);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private IMethodRequest dequeue() {
         IMethodRequest methodRequest = null;
-        methodRequest = this.activationQueue.dequeue();
+        try {
+            methodRequest = this.activationQueue.dequeue();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return methodRequest;
     }
 
@@ -34,7 +43,7 @@ public class Scheduler implements Runnable {
             if (methodRequest instanceof PutMethodRequest) {
                 if (!putQueue.isEmpty()) {
                     putQueue.offer(methodRequest);
-                    while (putQueue.peek().guard() && !putQueue.isEmpty())
+                    while (!putQueue.isEmpty() && putQueue.peek().guard())
                         putQueue.poll().execute();
 
                 } else {
@@ -43,10 +52,10 @@ public class Scheduler implements Runnable {
                     else
                         methodRequest.execute();
                 }
-            } else {
+            } else if (methodRequest instanceof TakeMethodRequest) {
                 if (!takeQueue.isEmpty()) {
                     takeQueue.offer(methodRequest);
-                    while (takeQueue.peek().guard() && !takeQueue.isEmpty())
+                    while (!takeQueue.isEmpty() && takeQueue.peek().guard())
                         takeQueue.poll().execute();
                 } else {
                     if (!methodRequest.guard()) {
@@ -64,9 +73,9 @@ public class Scheduler implements Runnable {
     }
 
     public void start() {
-        if (this.scheduler == null) {
-            this.scheduler = new Thread();
-            this.scheduler.start();
+        if (scheduler == null) {
+            scheduler = new Thread(this);
+            scheduler.start();
         }
     }
 

@@ -14,6 +14,7 @@ public class Proxy {
     public Proxy(int capacity){
         this.servant = new Servant(capacity);
         this.scheduler = new Scheduler();
+        this.scheduler.start();
     }
 
     public Future consume(int toConsume){
