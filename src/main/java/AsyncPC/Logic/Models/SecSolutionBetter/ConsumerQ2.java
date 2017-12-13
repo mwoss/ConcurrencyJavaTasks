@@ -25,14 +25,14 @@ public class ConsumerQ2 extends Thread {
         int toConsume;
         ArrayList<Integer> elementsToConsume;
         while(!Thread.currentThread().isInterrupted()){
-            toConsume = random.nextInt(this.buferLimit / 3) + 1;
+            toConsume = random.nextInt(this.buferLimit / 2) + 1;
             try{
                 elementsToConsume = this.pcMonitorAsyncQueue.takeFromBeg(toConsume);
-                System.out.println("Consumer named: " + Thread.currentThread().getName() + " gonna consume: " + elementsToConsume.toString());
+//                System.out.println("Consumer named: " + Thread.currentThread().getName() + " gonna consume: " + elementsToConsume.toString());
                 for(Integer element : elementsToConsume)
                     this.buffer.takeElement(element);
                 this.pcMonitorAsyncQueue.takeFromEnd(elementsToConsume);
-                Thread.sleep(500);
+                Thread.sleep(200);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }

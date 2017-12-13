@@ -5,14 +5,22 @@ import AsyncPC.Logic.Models.SecSolutionBetter.ProducerQ2;
 import AsyncPC.Logic.Utils.SecSolutionBetter.Buffer;
 import AsyncPC.Logic.Utils.SecSolutionBetter.PCMonitorAsyncQueue2;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MainQ2 {
 
-    public static void main(String[] args) {
-        int capacity = 100;
-        int threadAmount = 10;
+    public static void main(String[] args) throws FileNotFoundException {
+        PrintStream out = new PrintStream(new FileOutputStream("outputAsync" + 1000 + ".txt"));
+        System.setOut(out);
+        int capacity = 10000;
+        int threadAmount = 1000;
         List<Thread> prodList = new ArrayList<>();
         List<Thread> consList = new ArrayList<>();
         PCMonitorAsyncQueue2 pcMonitorAsync = new PCMonitorAsyncQueue2(capacity);
@@ -28,14 +36,13 @@ public class MainQ2 {
             prodList.get(i).start();
         }
 
-        for (int i = 0; i < threadAmount; i++) {
-            try{
-                prodList.get(i).join();
-                consList.get(i).join();
-            }
-            catch (InterruptedException e){
-                System.out.println(e.getMessage());
-            }
-        }
+        Runnable sysExit = () -> System.exit(0);
+
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.scheduleAtFixedRate(new TimerRunnableAsync(pcMonitorAsync, threadAmount), 0 ,2, TimeUnit.SECONDS);
+
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.schedule(sysExit, 30, TimeUnit.SECONDS);
+
     }
 }

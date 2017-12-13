@@ -25,14 +25,14 @@ public class ProducerQ2 extends Thread{
         int toProduce;
         ArrayList<Integer> elementsToProduce;
         while(!Thread.currentThread().isInterrupted()){
-            toProduce = random.nextInt(this.buferLimit / 3) + 1;
+            toProduce = random.nextInt(this.buferLimit / 2) + 1;
             try{
                 elementsToProduce = this.pcMonitorAsyncQueue.insertOnBeg(toProduce);
-                System.out.println("Producer named: " + Thread.currentThread().getName() + "gonna produce: " + elementsToProduce.toString());
+//                System.out.println("Producer named: " + Thread.currentThread().getName() + "gonna produce: " + elementsToProduce.toString());
                 for(Integer element : elementsToProduce)
                     this.buffer.setElement(random.nextInt(this.buferLimit / 2) + 1, element);
                 this.pcMonitorAsyncQueue.insertOnEnd(elementsToProduce);
-                Thread.sleep(500);
+                Thread.sleep(200);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }

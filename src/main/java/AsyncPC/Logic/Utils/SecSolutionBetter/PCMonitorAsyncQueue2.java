@@ -20,12 +20,18 @@ public class PCMonitorAsyncQueue2 {
     private Queue<Integer> empty;
     private Queue<Integer> full;
 
+    private int prodExecuted;
+    private int consExecuted;
+
     public PCMonitorAsyncQueue2(int capacity){
         this.empty = new ConcurrentLinkedQueue<>();
         this.full = new ConcurrentLinkedQueue<>();
 
         for (int i = 0; i < capacity; i++)
             empty.add(i);
+
+        prodExecuted = 0;
+        consExecuted = 0;
     }
 
 
@@ -60,6 +66,7 @@ public class PCMonitorAsyncQueue2 {
             otherProd.signal();
         }
         finally {
+            prodExecuted++;
             lock.unlock();
         }
     }
@@ -99,7 +106,16 @@ public class PCMonitorAsyncQueue2 {
             }
         }
         finally {
+            consExecuted++;
             lock.unlock();
         }
+    }
+
+    public int getProdExecuted() {
+        return prodExecuted;
+    }
+
+    public int getConsExecuted() {
+        return consExecuted;
     }
 }

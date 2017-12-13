@@ -39,7 +39,7 @@ public class Consumer extends Thread {
                 }
             }
             catch (InterruptedException e){
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }

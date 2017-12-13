@@ -33,5 +33,12 @@ public class Proxy {
         return produceFuture;
     }
 
+    public int getProdExecuted(){
+        return servant.getProdExecuted();
+    }
+    public int getConsExecuted(){
+        return servant.getConsExecuted();
+    }
+
 
 }
