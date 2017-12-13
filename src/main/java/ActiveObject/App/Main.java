@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-        PrintStream out = new PrintStream(new FileOutputStream("outputAO" + 1000 + ".txt"));
+        PrintStream out = new PrintStream(new FileOutputStream("new_outputAO" + 1000 + ".txt"));
         System.setOut(out);
         final int N = 1000;
         final int capacity = 10000;
