@@ -17,10 +17,10 @@ import java.util.concurrent.TimeUnit;
 public class MainQ2 {
 
     public static void main(String[] args) throws FileNotFoundException {
-        PrintStream out = new PrintStream(new FileOutputStream("new_outputAsync" + 1000 + ".txt"));
+        PrintStream out = new PrintStream(new FileOutputStream("new_outputAsync" + 100 + ".txt"));
         System.setOut(out);
         int capacity = 10000;
-        int threadAmount = 1000;
+        int threadAmount = 100;
         List<Thread> prodList = new ArrayList<>();
         List<Thread> consList = new ArrayList<>();
         PCMonitorAsyncQueue2 pcMonitorAsync = new PCMonitorAsyncQueue2(capacity);
