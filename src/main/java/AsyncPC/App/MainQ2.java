@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class MainQ2 {
 
     public static void main(String[] args) throws FileNotFoundException {
-        PrintStream out = new PrintStream(new FileOutputStream("new_outputAsync" + 100 + ".txt"));
+        PrintStream out = new PrintStream(new FileOutputStream("new_outputAsync_sleep" + 1000 + ".txt"));
         System.setOut(out);
         int capacity = 10000;
         int threadAmount = 100;

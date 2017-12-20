@@ -29,7 +29,7 @@ public class Consumer extends Thread {
             taskList.add(proxy.consume(random.nextInt(bufferLimit / 2) + 1));
 
             try{
-                Thread.sleep(100); //give him some time to finish job
+                Thread.sleep(1000); //give him some time to finish job
                 for(Iterator<Future> iterator = taskList.iterator(); iterator.hasNext();){
                     Future task = iterator.next();
                     if(task.isFinished()){

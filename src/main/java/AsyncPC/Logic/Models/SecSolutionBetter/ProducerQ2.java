@@ -32,7 +32,7 @@ public class ProducerQ2 extends Thread{
                 for(Integer element : elementsToProduce)
                     this.buffer.setElement(random.nextInt(this.buferLimit / 2) + 1, element);
                 this.pcMonitorAsyncQueue.insertOnEnd(elementsToProduce);
-                Thread.sleep(100);
+                Thread.sleep(1000);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
