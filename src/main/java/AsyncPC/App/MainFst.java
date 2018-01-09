@@ -7,7 +7,7 @@ import AsyncPC.Logic.Utils.FirstSolution.PCMonitorAsync;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class MainFst {
     public static void main(String[] args) {
         final int capacity = 50;
         final int producerAmount = 10;

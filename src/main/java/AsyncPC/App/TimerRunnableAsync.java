@@ -1,6 +1,6 @@
 package AsyncPC.App;
 
-import AsyncPC.Logic.Utils.SecSolutionBetter.PCMonitorAsyncQueue2;
+import AsyncPC.Logic.Utils.FinalSolution.PCMonitorAsyncQueue2;
 
 public class TimerRunnableAsync implements Runnable {
     private PCMonitorAsyncQueue2 monitor;

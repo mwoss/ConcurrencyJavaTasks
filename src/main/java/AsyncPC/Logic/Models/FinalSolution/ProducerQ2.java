@@ -1,7 +1,7 @@
-package AsyncPC.Logic.Models.SecSolutionBetter;
+package AsyncPC.Logic.Models.FinalSolution;
 
-import AsyncPC.Logic.Utils.SecSolutionBetter.Buffer;
-import AsyncPC.Logic.Utils.SecSolutionBetter.PCMonitorAsyncQueue2;
+import AsyncPC.Logic.Utils.FinalSolution.Buffer;
+import AsyncPC.Logic.Utils.FinalSolution.PCMonitorAsyncQueue2;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -32,7 +32,7 @@ public class ProducerQ2 extends Thread{
                 for(Integer element : elementsToProduce)
                     this.buffer.setElement(random.nextInt(this.buferLimit / 2) + 1, element);
                 this.pcMonitorAsyncQueue.insertOnEnd(elementsToProduce);
-                Thread.sleep(1000);
+                Thread.sleep(500);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }

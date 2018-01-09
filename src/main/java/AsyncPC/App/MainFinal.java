@@ -1,9 +1,9 @@
 package AsyncPC.App;
 
-import AsyncPC.Logic.Models.SecSolutionBetter.ConsumerQ2;
-import AsyncPC.Logic.Models.SecSolutionBetter.ProducerQ2;
-import AsyncPC.Logic.Utils.SecSolutionBetter.Buffer;
-import AsyncPC.Logic.Utils.SecSolutionBetter.PCMonitorAsyncQueue2;
+import AsyncPC.Logic.Models.FinalSolution.ConsumerQ2;
+import AsyncPC.Logic.Models.FinalSolution.ProducerQ2;
+import AsyncPC.Logic.Utils.FinalSolution.Buffer;
+import AsyncPC.Logic.Utils.FinalSolution.PCMonitorAsyncQueue2;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,13 +14,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class MainQ2 {
+public class MainFinal {
 
     public static void main(String[] args) throws FileNotFoundException {
-        PrintStream out = new PrintStream(new FileOutputStream("new_outputAsync_sleep" + 1000 + ".txt"));
+        PrintStream out = new PrintStream(new FileOutputStream("outputAsync_sleep_thread" + 2 + ".txt"));
         System.setOut(out);
-        int capacity = 10000;
-        int threadAmount = 100;
+        int capacity = 5000;
+        int threadAmount = 2;
         List<Thread> prodList = new ArrayList<>();
         List<Thread> consList = new ArrayList<>();
         PCMonitorAsyncQueue2 pcMonitorAsync = new PCMonitorAsyncQueue2(capacity);

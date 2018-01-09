@@ -7,7 +7,7 @@ import AsyncPC.Logic.Utils.SecSolution.PCMonitorAsyncQueue;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainQ {
+public class MainSec {
     public static void main(String[] args) {
         int capacity = 100;
         int threadAmount = 10;

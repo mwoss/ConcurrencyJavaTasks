@@ -1,16 +1,12 @@
 package ActiveObject.App;
-
 import ActiveObject.Models.Consumer;
 import ActiveObject.Models.Producer;
 import ActiveObject.Proxy;
 import ActiveObject.TimerRunnable;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -18,10 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-        PrintStream out = new PrintStream(new FileOutputStream("new_outputAO_sleep" + 1000 + ".txt"));
+        PrintStream out = new PrintStream(new FileOutputStream("outputAO_sleep_thread" + 2 + ".txt"));
         System.setOut(out);
-        final int N = 100;
-        final int capacity = 10000;
+        final int N = 2;
+        final int capacity = 5000;
         List<Thread> prodList = new ArrayList<>();
         List<Thread> consList = new ArrayList<>();
         Proxy proxy = new Proxy(capacity);

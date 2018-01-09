@@ -1,4 +1,4 @@
-package AsyncPC.Logic.Utils.SecSolutionBetter;
+package AsyncPC.Logic.Utils.FinalSolution;
 
 import java.util.ArrayList;
 import java.util.Queue;
